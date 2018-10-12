@@ -1,4 +1,4 @@
-# keyLib examples
+# KeyLib examples
 
 ## Generate a random key for Bitcoin network
 ```javascript
