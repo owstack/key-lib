@@ -1,0 +1,53 @@
+{
+  "name": "@owstack/key-lib",
+  "version": "0.0.1",
+  "description": "A JavaScript cryptocurrency key library.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "gulp lint",
+    "test": "gulp test",
+    "coverage": "gulp coverage",
+    "build": "gulp"
+  },
+  "keywords": [
+    "transaction",
+    "address",
+    "p2p",
+    "ecies",
+    "cryptocurrency",
+    "blockchain",
+    "payment",
+    "bip21",
+    "bip32",
+    "bip37",
+    "bip44",
+    "bip69",
+    "bip70",
+    "multisig"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/owstack/key-lib.git"
+  },
+  "browser": {
+    "request": "browser-request"
+  },
+  "dependencies": {
+    "@owstack/ows-common": "^0.0.3",
+    "bip44-constants": "^5.2.1",
+    "bn.js": "=2.0.4",
+    "bs58": "=2.0.0",
+    "buffer-compare": "=1.0.0",
+    "elliptic": "=3.0.3",
+    "inherits": "=2.0.1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "@owstack/ows-build": "^0.0.3",
+    "brfs": "^1.2.0",
+    "chai": "^1.10.0",
+    "gulp": "^3.8.10",
+    "sinon": "^1.13.0"
+  },
+  "license": "MIT"
+}
