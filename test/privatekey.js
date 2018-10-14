@@ -513,4 +513,11 @@ describe('PrivateKey', function() {
 
   });
 
+  describe('#toAESKey', function() {
+    it('should be ok', function() {
+      var privKey = new PrivateKey('09458c090a69a38368975fb68115df2f4b0ab7d1bc463fc60c67aa1730641d6c');
+      privKey.toAESKey().should.be.equal('2HvmUYBSD0gXLea6z0n7EQ==');
+    });
+  });  
+
 });
