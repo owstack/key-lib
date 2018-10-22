@@ -514,10 +514,34 @@ describe('PrivateKey', function() {
   });
 
   describe('#toAESKey', function() {
+
     it('should be ok', function() {
       var privKey = new PrivateKey('09458c090a69a38368975fb68115df2f4b0ab7d1bc463fc60c67aa1730641d6c');
       privKey.toAESKey().should.be.equal('2HvmUYBSD0gXLea6z0n7EQ==');
     });
-  });  
+
+  });
+
+  describe('#decryptBIP38PrivateKey', function() {
+
+    it.skip('should decrypt bip38 encrypted private key', function(done) {
+      this.timeout(60000);
+      clients[0].decryptBIP38PrivateKey('6PfRh9ZnWtiHrGoPPSzXe6iafTXc6FSXDhSBuDvvDmGd1kpX2Gvy1CfTcA', 'passphrase', {}, function(err, result) {
+        should.not.exist(err);
+        result.should.equal('5KjBgBiadWGhjWmLN1v4kcEZqWSZFqzgv7cSUuZNJg4tD82c4xp');
+        done();
+      });
+    });
+
+    it.skip('should fail to decrypt bip38 encrypted private key with incorrect passphrase', function(done) {
+      this.timeout(60000);
+      clients[0].decryptBIP38PrivateKey('6PfRh9ZnWtiHrGoPPSzXe6iafTXc6FSXDhSBuDvvDmGd1kpX2Gvy1CfTcA', 'incorrect passphrase', {}, function(err, result) {
+        should.exist(err);
+        err.message.should.contain('passphrase');
+        done();
+      });
+    });
+
+  });
 
 });
