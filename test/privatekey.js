@@ -26,6 +26,8 @@ describe('PrivateKey', function() {
   var wifBTCUncompressed = '5JxgQaFM1FMd38cd14e3mbdxsdSa9iM2BV6DHBYsvGzxkTNQ7Un';
   var wifLTC = 'T5vjkWhLbgjwfR3bcnzAP3BShM6gUDhVjjpCTZqGga3k6VVqHkzu';
   var wifLTCUncompressed = '6vMsXf7UjHVTkMYBcqcUW1qxmBzqMq4gyQ12dcXsKjmSafByBxi';
+  var wifTestnet = 'cSdkPxkAjA4HDr5VHgsebAPDEh9Gyub4HK8UJr2DFGGqKKy4K5sG';
+  var wifTestnetUncompressed = '92jJzK4tbURm1C7udQXxeCBvXHoHJstDXRxAMouPG1k1XUaXdsu';
   var wifNamecoin = '74pxNKNpByQ2kMow4d9kF6Z77BYeKztQNLq3dSyU4ES1K5KLNiz';
 
   it('should create a new random private key', function() {
@@ -39,6 +41,12 @@ describe('PrivateKey', function() {
 
   it('should create a privatekey from hexa string', function() {
     var a = new PrivateKey(hex2);
+    should.exist(a);
+    should.exist(a.bn);
+  });
+
+  it('should create a new random testnet private key with only one argument', function() {
+    var a = new PrivateKey(Networks.testnet);
     should.exist(a);
     should.exist(a.bn);
   });
@@ -101,6 +109,12 @@ describe('PrivateKey', function() {
     should.exist(a.bn);
   });
 
+  it('should create a new random testnet private key with empty data', function() {
+    var a = new PrivateKey(null, Networks.testnet);
+    should.exist(a);
+    should.exist(a.bn);
+  });
+
   it('should create a private key from WIF string', function() {
     var a = new PrivateKey('L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m');
     should.exist(a);
@@ -115,10 +129,13 @@ describe('PrivateKey', function() {
 
   describe('bitcoind compliance', function() {
 
-    validbase58_bitcoind.map(function(d){
-      if (d[2].isPrivkey && d[2].chain == 'main') { // Only testing BTC livenet, no support for BTC testnet
+    validbase58_bitcoind.map(function(d) {
+      if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
           var network = Networks.get('BTC');
+          if (d[2].isTestnet) {
+            network = Networks.testnet;
+          }
           // BTC shares address prefix values with other coins, must specify coin of WIF private key to discern. If coin is
           // not specified then the default network is selected (BTC).
           // var key = new PrivateKey(d[0], 'BTC');
@@ -287,7 +304,7 @@ describe('PrivateKey', function() {
     });
 
     it('input json should correctly initialize network field', function() {
-      ['BTC', 'BCH', 'LTC'].forEach(function (net) {
+      ['BTC', 'BCH', 'LTC', 'TESTNET'].forEach(function (net) {
         var pk = PrivateKey.fromObject({
           bn: '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a',
           compressed: false,
@@ -460,6 +477,11 @@ describe('PrivateKey', function() {
       privkey.toWIF().should.equal(wifLTC);
     });
 
+    it('should parse this compressed testnet private key correctly', function() {
+      var privkey = PrivateKey.fromWIF(wifTestnet);
+      privkey.toWIF().should.equal(wifTestnet);
+    });
+
   });
 
   describe('#fromString', function() {
@@ -467,6 +489,11 @@ describe('PrivateKey', function() {
     it('should parse this uncompressed LTC private key correctly', function() {
       var privkey = PrivateKey.fromString(wifLTCUncompressed);
       privkey.toWIF().should.equal(wifLTCUncompressed);
+    });
+
+    it('should parse this uncompressed testnet private key correctly', function() {
+      var privkey = PrivateKey.fromString(wifTestnetUncompressed);
+      privkey.toWIF().should.equal(wifTestnetUncompressed);
     });
 
   });

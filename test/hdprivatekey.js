@@ -61,6 +61,12 @@ describe('HDPrivate key interface', function() {
     key.network.symbol.should.equal('BTC');
   });
 
+  it('should make a new private key from random for testnet', function() {
+    var key = new HDPrivateKey('TESTNET');
+    should.exist(key.xprivkey);
+    key.network.name.should.equal('Testnet');
+  });
+
   it('should not be able to change read-only properties', function() {
     var hdkey = new HDPrivateKey();
     expect(function() {
@@ -100,10 +106,12 @@ describe('HDPrivate key interface', function() {
   describe('public key', function() {
     var ltcKey = new HDPrivateKey('Ltpv71G8qDifUiNetRHkuEut8VA5vEXTBSpXUKZRdUrzq4Z3TuVvDNYh8zuDeyTetUPSqYg5fcEJEDpVqe7tXQaE3YtvJkpYLPjSwPMu3dqfvYh', 'LTC');
     var btcKey = new HDPrivateKey('xprv9s21ZrQH143K3e39bnn1vyS7YFa1EAJAFGDoeHaSBsgBxgAkTEXeSx7xLvhNQNJxJwhzziWcK3znUFKRPRwWBPkKZ8ijUBa5YYpYPQmeBDX', 'BTC');
+    var testnetKey = new HDPrivateKey('tprv8ZgxMBicQKsPdEeU2KiGFnUgRGriMnQxrwrg6FWCBg4jeiidHRyCCdA357kfkZiGaXEapWZsGDKikeeEbvgXo3UmEdbEKNdQH9VXESmGuUK');
 
     it('matches the network', function() {
       ltcKey.publicKey.network.should.equal(Networks.get('LTC'));
       btcKey.publicKey.network.should.equal(Networks.get('BTC'));
+      testnetKey.publicKey.network.should.equal(Networks.get('TESTNET'));
     });
 
     it('cache for xpubkey works', function() {

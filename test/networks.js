@@ -11,6 +11,11 @@ describe('Networks', function() {
 
   var customnet;
 
+  it('will get network based on string "TESTNET" value', function() {
+    var network = networks.get('TESTNET');
+    network.should.equal(networks.testnet);
+  });
+
   it('should be able to define a custom Network', function() {
     var custom = {
       name: 'customnet',
@@ -87,6 +92,7 @@ describe('Networks', function() {
       _.has(networks.get('BCH'), key).should.equal(true);
       _.has(networks.get('BTC'), key).should.equal(true);
       _.has(networks.get('LTC'), key).should.equal(true);
+      _.has(networks.get('TESTNET'), key).should.equal(true);
     });
   });
 
