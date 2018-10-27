@@ -20,6 +20,9 @@ var HDPublicKey = keyLib.HDPublicKey;
 var Networks = keyLib.Networks;
 var _ = require('lodash');
 
+// Setup some networks for tests.
+require('./data/networks');
+
 describe('HDKeys building with static methods', function() {
 
   var classes = [HDPublicKey, HDPrivateKey];
@@ -304,17 +307,18 @@ describe('BIP32 compliance', function() {
   describe('seed', function() {
 
     it('should initialize a new BIP32 correctly from test vector 1 seed', function() {
-      var seededKey = HDPrivateKey.fromSeed(vector1_master, Networks.defaultNetwork);
+      var seededKey = HDPrivateKey.fromSeed(vector1_master, Networks.get('BTC'));
       seededKey.xprivkey.should.equal(vector1_m_private);
       seededKey.xpubkey.should.equal(vector1_m_public);
     });
 
     it('should initialize a new BIP32 correctly from test vector 2 seed', function() {
-      var seededKey = HDPrivateKey.fromSeed(vector2_master, Networks.defaultNetwork);
+      var seededKey = HDPrivateKey.fromSeed(vector2_master, Networks.get('BTC'));
       seededKey.xprivkey.should.equal(vector2_m_private);
       seededKey.xpubkey.should.equal(vector2_m_public);
     });
   });
+
 });
 
 //test vectors: https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki

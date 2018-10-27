@@ -17,6 +17,9 @@ var validbase58_bitcoind = require('./data/bitcoind/base58_keys_valid.json');
 var validbase58_bitcoinabc = require('./data/bitcoinabc/base58_keys_valid.json');
 var validbase58_litecoin = require('./data/litecoin/base58_keys_valid.json');
 
+// Setup some networks for tests.
+require('./data/networks');
+
 describe('PrivateKey', function() {
 
   var hex = '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a';
@@ -52,7 +55,7 @@ describe('PrivateKey', function() {
   });
 
   it('should create a new random private key with only one argument', function() {
-    var a = new PrivateKey(Networks.defaultNetwork);
+    var a = new PrivateKey(Networks.get('BTC'));
     should.exist(a);
     should.exist(a.bn);
 
@@ -70,6 +73,7 @@ describe('PrivateKey', function() {
       name: 'namecoin',
       symbol: 'nam',
       coin: 0x81234567,
+      protocol: 'namecoin',
       prefix: {
         pubkeyhash: 0x34,
         privatekey: 0xB4,
@@ -85,7 +89,8 @@ describe('PrivateKey', function() {
       dnsSeeds: [
         'localhost',
         'mynet.localhost'
-      ]
+      ],
+      indexBy: Networks.indexAll
     };
     Networks.add(nmc);
     var nmcNet = Networks.get('namecoin');
@@ -96,7 +101,7 @@ describe('PrivateKey', function() {
   });
 
   it('should create a new random private key with empty data', function() {
-    var a = new PrivateKey(null, Networks.defaultNetwork);
+    var a = new PrivateKey(null, Networks.get('BTC'));
     should.exist(a);
     should.exist(a.bn);
 
@@ -134,12 +139,9 @@ describe('PrivateKey', function() {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
           var network = Networks.get('BTC');
           if (d[2].isTestnet) {
-            network = Networks.testnet;
+            network = Networks.get('TESTNET');
           }
-          // BTC shares address prefix values with other coins, must specify coin of WIF private key to discern. If coin is
-          // not specified then the default network is selected (BTC).
-          // var key = new PrivateKey(d[0], 'BTC');
-          var key = new PrivateKey(d[0]);
+          var key = new PrivateKey(d[0], network);
           key.compressed.should.equal(d[2].isCompressed);
           key.network.should.equal(network);
         });
@@ -159,11 +161,13 @@ describe('PrivateKey', function() {
   describe('bitcoinabc compliance', function() {
 
     validbase58_bitcoinabc.map(function(d) {
-      if (d[2].isPrivkey && d[2].isTestnet == false) { // Only testing BCH livenet, no support for BCH testnet
+      if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
           var network = Networks.get('BCH');
-          // BCH shares address prefix values with other coins, must specify coin of WIF private key to discern.
-          var key = new PrivateKey(d[0], 'BCH'); // <--
+          if (d[2].isTestnet) {
+            network = Networks.get('BCHTEST');
+          }
+          var key = new PrivateKey(d[0], network);
           key.compressed.should.equal(d[2].isCompressed);
           key.network.should.equal(network);
         });
@@ -183,10 +187,13 @@ describe('PrivateKey', function() {
   describe('litecoin compliance', function() {
 
     validbase58_litecoin.map(function(d){
-      if (d[2].isPrivkey && d[2].isTestnet == false) {
+      if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
           var network = Networks.get('LTC');
-          var key = new PrivateKey(d[0], 'LTC');
+          if (d[2].isTestnet) {
+            network = Networks.get('TESTNET');
+          }
+          var key = new PrivateKey(d[0], network);
           key.compressed.should.equal(d[2].isCompressed);
           key.network.should.equal(network);
         });
@@ -268,20 +275,6 @@ describe('PrivateKey', function() {
     it('should create a BTC private key', function() {
       var privkey = new PrivateKey(BN.fromBuffer(buf), 'BTC');
       privkey.toWIF().should.equal(wifBTC);
-    });
-
-    it('should create a default network private key', function() {
-      // keep the original
-      var network = Networks.defaultNetwork;
-      Networks.defaultNetwork = Networks.get('BTC');
-      var a = new PrivateKey(BN.fromBuffer(buf));
-      a.network.should.equal(Networks.get('BTC'));
-      // change the default
-      Networks.defaultNetwork = Networks.get('LTC');
-      var b = new PrivateKey(BN.fromBuffer(buf));
-      b.network.should.equal(Networks.get('LTC'));
-      // restore the default
-      Networks.defaultNetwork = network;
     });
 
     it('returns the same instance if a PrivateKey is provided (immutable)', function() {

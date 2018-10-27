@@ -6,11 +6,15 @@ var keyLib = require('../..');
 var BN = keyLib.crypto.BN;
 var ECDSA = require('../../lib/crypto/ecdsa');
 var Hash = keyLib.crypto.Hash;
+var Networks = require('../../lib/networks');
 var point = require('../../lib/crypto/point');
 var Privkey = require('../../lib/privatekey');
 var Pubkey = require('../../lib/publickey');
 var Signature = require('../../lib/crypto/signature');
 var vectors = require('../data/ecdsa');
+
+// Setup some networks for tests.
+require('../data/networks');
 
 describe('ECDSA', function() {
 

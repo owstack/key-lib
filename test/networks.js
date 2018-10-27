@@ -4,22 +4,17 @@ var expect = require('chai').expect;
 var should = require('chai').should();
 
 var keyLib = require('..');
-var networks = keyLib.Networks;
+var Networks = keyLib.Networks;
 var _ = require('lodash');
 
 describe('Networks', function() {
 
   var customnet;
 
-  it('will get network based on string "TESTNET" value', function() {
-    var network = networks.get('TESTNET');
-    network.should.equal(networks.testnet);
-  });
-
   it('should be able to define a custom Network', function() {
     var custom = {
       name: 'customnet',
-      symbol: 'net',
+      symbol: 'customnet',
       coin: 0x81234567,
       prefix: {
         pubkeyhash: 0x10,
@@ -35,15 +30,20 @@ describe('Networks', function() {
       dnsSeeds: [
         'localhost',
         'mynet.localhost'
-      ]
+      ],
+      indexBy: Networks.indexAll
     };
-    networks.add(custom);
-    customnet = networks.get('customnet');
+    Networks.add(custom);
+    customnet = Networks.get('customnet');
 
     var expected = new Buffer('e7beb4d4', 'hex');
     customnet.networkMagic.should.deep.equal(expected);
 
     for (var key in custom) {
+      if (key !== 'indexBy') {
+        return;
+      }
+
       if (key !== 'networkMagic') {
         customnet[key].should.deep.equal(custom[key]);
       } else {
@@ -54,15 +54,15 @@ describe('Networks', function() {
   });
 
   it('can remove a custom network', function() {
-    networks.remove(customnet);
-    var net = networks.get('customnet');
+    Networks.remove(customnet);
+    var net = Networks.get('customnet');
     should.equal(net, undefined);
   });
 
   it('should not set a network map for an undefined value', function() {
     var custom = {
       name: 'somenet',
-      symbol: 'net',
+      symbol: 'somenet',
       coin: 0x81234567,
       prefix: {
         pubkeyhash: 0x13,
@@ -77,42 +77,51 @@ describe('Networks', function() {
       port: 20008,
       dnsSeeds: [
         'somenet.localhost'
-      ]
+      ],
+      indexBy: Networks.indexAll
     };
-    networks.add(custom);
-    var network = networks.get(undefined);
+    Networks.add(custom);
+    var network = Networks.get(undefined);
     should.not.exist(network);
-    networks.remove(custom);
+    Networks.remove(custom);
   });
 
-  var constants = ['name', 'symbol', 'coin', 'prefix.pubkeyhash', 'prefix.scripthash', 'version.xpubkey', 'version.xprivkey'];
+  it('should get the default network', function() {
+    var network = Networks.get('ROOT');
+    network.should.equal(Networks.defaultNetwork);
+  });
 
-  constants.forEach(function(key) {
-    it('should have constant '+key+' for all networks', function() {
-      _.has(networks.get('BCH'), key).should.equal(true);
-      _.has(networks.get('BTC'), key).should.equal(true);
-      _.has(networks.get('LTC'), key).should.equal(true);
-      _.has(networks.get('TESTNET'), key).should.equal(true);
+  var masterConstants = [
+    'name',
+    'symbol',
+    'version.xpubkey',
+    'version.xprivkey'
+  ];
+
+  masterConstants.forEach(function(key) {
+    it('should have constant ' + key + ' for all Networks', function() {
+      _.has(Networks.get('ROOT'), key).should.equal(true);
     });
   });
 
   it('tests only for the specified key', function() {
-    expect(networks.get(0x30, 'prefix.pubkeyhash')).to.equal(networks.get('LTC'));
-    expect(networks.get(0xa0, 'prefix.privatekey')).to.equal(undefined);
+    expect(Networks.get(0x040bee6c, 'version.xprivkey')).to.equal(Networks.defaultNetwork);
+    expect(Networks.get(0x040bee6c, 'version.xpubkey')).to.equal(undefined);
   });
 
   it('can test for multiple keys', function() {
-    expect(networks.get(0x30, ['prefix.pubkeyhash', 'prefix.scripthash'])).to.equal(networks.get('LTC'));
-    expect(networks.get(0xa0, ['prefix.privatekey', 'port'])).to.equal(undefined);
+    expect(Networks.get(0x040bee6c, ['version.xprivkey', 'version.xpubkey'])).to.equal(Networks.get('ROOT'));
+    expect(Networks.get(0x040bf2a6, ['version.xprivkey', 'version.xpubkey'])).to.equal(Networks.get('ROOT'));
+    expect(Networks.get(0x0, ['version.xprivkey', 'version.xpubkey'])).to.equal(undefined);
   });
 
   it('converts to string using the "name" property', function() {
-    networks.get('BTC').toString().should.equal('BTC');
+    Networks.get('ROOT').toString().should.equal('ROOT');
   });
 
   it('network object should be immutable', function() {
-    expect(networks.get('BTC').symbol).to.equal('BTC')
-    var fn = function() { networks.get('BTC').symbol = 'Something else' }
+    expect(Networks.get('ROOT').symbol).to.equal('ROOT')
+    var fn = function() { Networks.get('ROOT').symbol = 'Something else' }
     expect(fn).to.throw(TypeError)
   });
 

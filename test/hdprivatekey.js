@@ -16,6 +16,9 @@ var HDPrivateKey = keyLib.HDPrivateKey;
 var Networks = keyLib.Networks;
 var _ = require('lodash');
 
+// Setup some networks for tests.
+require('./data/networks');
+
 var xprivkey = 'xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi';
 var json = '{"network":"BTC","depth":0,"fingerPrint":876747070,"parentFingerPrint":0,"childIndex":0,"chainCode":"873dff81c02f525623fd1fe5167eac3a55a049de3d314bb42ee227ffed37d508","privateKey":"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35","checksum":-411132559,"xprivkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi"}';
 
@@ -51,7 +54,7 @@ describe('HDPrivate key interface', function() {
     }, error);
   };
 
-  it('should make a new private key from random', function() {
+  it('should make a new master private key from random', function() {
     should.exist(new HDPrivateKey().xprivkey);
   });
 
@@ -91,9 +94,6 @@ describe('HDPrivate key interface', function() {
   });
 
   describe('instantiation', function() {
-    it('invalid argument: can not instantiate from a number', function() {
-      expectFailBuilding(1, hdErrors.UnrecognizedArgument);
-    });
     it('allows no-new calling', function() {
       HDPrivateKey(xprivkey).toString().should.equal(xprivkey);
     });
@@ -104,11 +104,13 @@ describe('HDPrivate key interface', function() {
   });
 
   describe('public key', function() {
-    var ltcKey = new HDPrivateKey('Ltpv71G8qDifUiNetRHkuEut8VA5vEXTBSpXUKZRdUrzq4Z3TuVvDNYh8zuDeyTetUPSqYg5fcEJEDpVqe7tXQaE3YtvJkpYLPjSwPMu3dqfvYh', 'LTC');
-    var btcKey = new HDPrivateKey('xprv9s21ZrQH143K3e39bnn1vyS7YFa1EAJAFGDoeHaSBsgBxgAkTEXeSx7xLvhNQNJxJwhzziWcK3znUFKRPRwWBPkKZ8ijUBa5YYpYPQmeBDX', 'BTC');
+    var masterKey = new HDPrivateKey('mprv6Hs7DX2CMZ52gHffKzY3hCCn28X3sPDatiKWh7kgcxvdSJfmYwVkDsTgeK2UY3xiPm52ePPnNpnV5GerBL8Yjb7nPga2rxHiPP2y3PGgsjG');
+    var ltcKey = new HDPrivateKey('Ltpv71G8qDifUiNetRHkuEut8VA5vEXTBSpXUKZRdUrzq4Z3TuVvDNYh8zuDeyTetUPSqYg5fcEJEDpVqe7tXQaE3YtvJkpYLPjSwPMu3dqfvYh');
+    var btcKey = new HDPrivateKey('xprv9s21ZrQH143K3e39bnn1vyS7YFa1EAJAFGDoeHaSBsgBxgAkTEXeSx7xLvhNQNJxJwhzziWcK3znUFKRPRwWBPkKZ8ijUBa5YYpYPQmeBDX');
     var testnetKey = new HDPrivateKey('tprv8ZgxMBicQKsPdEeU2KiGFnUgRGriMnQxrwrg6FWCBg4jeiidHRyCCdA357kfkZiGaXEapWZsGDKikeeEbvgXo3UmEdbEKNdQH9VXESmGuUK');
 
     it('matches the network', function() {
+      masterKey.publicKey.network.should.equal(Networks.get('ROOT'));
       ltcKey.publicKey.network.should.equal(Networks.get('LTC'));
       btcKey.publicKey.network.should.equal(Networks.get('BTC'));
       testnetKey.publicKey.network.should.equal(Networks.get('TESTNET'));

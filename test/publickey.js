@@ -93,10 +93,16 @@ describe('PublicKey', function() {
       publicKey.should.equal(publicKey2);
     });
 
-    it('sets the network to defaultNetwork if none provided', function() {
+    it('sets the network as specified', function() {
+      var publicKeyHex = '031ff0fe0f7b15ffaa85ff9f4744d539139c252a49710fb053bb9f2b933173ff9a';
+      var publicKey = new PublicKey(publicKeyHex, 'BTC');
+      publicKey.network.should.equal(Networks.get('BTC'));
+    });
+
+    it('sets root network if none provided', function() {
       var publicKeyHex = '031ff0fe0f7b15ffaa85ff9f4744d539139c252a49710fb053bb9f2b933173ff9a';
       var publicKey = new PublicKey(publicKeyHex);
-      publicKey.network.should.equal(Networks.defaultNetwork);
+      publicKey.network.should.equal(Networks.get('ROOT'));
     });
 
     it('from a hex encoded DER string', function() {
