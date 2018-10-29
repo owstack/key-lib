@@ -8,15 +8,15 @@ var should = require('chai').should();
 
 var keyLib = require('..');
 var owsCommon = require('@owstack/ows-common');
-var Base58Check = keyLib.encoding.Base58Check;
+var Base58Check = owsCommon.encoding.Base58Check;
 var buffer = require('buffer');
-var BufferUtil = keyLib.util.buffer;
+var BufferUtil = owsCommon.buffer;
 var errors = owsCommon.errors;
 var hdErrors = keyLib.errors.HDPublicKey;
 var HDPrivateKey = keyLib.HDPrivateKey;
 var HDPublicKey = keyLib.HDPublicKey;
 var Networks = keyLib.Networks;
-var _ = require('lodash');
+var lodash = require('lodash');
 
 var xprivkey = 'xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi';
 var xpubkey = 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8';
@@ -105,7 +105,7 @@ describe('HDPublicKey interface', function() {
     });
 
     it('can generate a json that has a particular structure', function() {
-      assert(_.isEqual(
+      assert(lodash.isEqual(
         new HDPublicKey(JSON.parse(json)).toJSON(),
         new HDPublicKey(xpubkey).toJSON()
       ));

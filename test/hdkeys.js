@@ -18,7 +18,7 @@ var keyLib = require('..');
 var HDPrivateKey = keyLib.HDPrivateKey;
 var HDPublicKey = keyLib.HDPublicKey;
 var Networks = keyLib.Networks;
-var _ = require('lodash');
+var lodash = require('lodash');
 
 // Setup some networks for tests.
 require('./data/networks');
@@ -28,7 +28,7 @@ describe('HDKeys building with static methods', function() {
   var classes = [HDPublicKey, HDPrivateKey];
   var clazz, index;
 
-  _.each(classes, function(clazz) {
+  lodash.each(classes, function(clazz) {
     var expectStaticMethodFail = function(staticMethod, argument, message) {
       expect(clazz[staticMethod].bind(null, argument)).to.throw(message);
     };

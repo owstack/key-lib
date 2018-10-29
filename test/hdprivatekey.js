@@ -7,14 +7,14 @@ var should = require('chai').should();
 
 var keyLib = require('..');
 var owsCommon = require('@owstack/ows-common');
-var Base58Check = keyLib.encoding.Base58Check;
+var Base58Check = owsCommon.encoding.Base58Check;
 var buffer = require('buffer');
-var BufferUtil = keyLib.util.buffer;
+var BufferUtil = owsCommon.buffer;
 var errors = owsCommon.errors;
 var hdErrors = errors.HDPrivateKey;
 var HDPrivateKey = keyLib.HDPrivateKey;
 var Networks = keyLib.Networks;
-var _ = require('lodash');
+var lodash = require('lodash');
 
 // Setup some networks for tests.
 require('./data/networks');
@@ -87,7 +87,7 @@ describe('HDPrivate key interface', function() {
   });
 
   it('builds a json keeping the structure and same members', function() {
-    assert(_.isEqual(
+    assert(lodash.isEqual(
       new HDPrivateKey(json).toJSON(),
       new HDPrivateKey(xprivkey).toJSON()
     ));
@@ -309,7 +309,7 @@ describe('HDPrivate key interface', function() {
     it('toObject leaves no Buffer instances', function() {
       var privKey = new HDPrivateKey(xprivkey);
       var object = privKey.toObject();
-      _.each(_.values(object), function(value) {
+      lodash.each(lodash.values(object), function(value) {
         expect(BufferUtil.isBuffer(value)).to.equal(false);
       });
     });

@@ -2,10 +2,11 @@
 
 var should = require('chai').should();
 
+var owsCommon = require('@owstack/ows-common');
 var keyLib = require('../..');
-var BN = keyLib.crypto.BN;
+var BN = owsCommon.BN;
 var ECDSA = require('../../lib/crypto/ecdsa');
-var Hash = keyLib.crypto.Hash;
+var Hash = owsCommon.Hash;
 var Networks = require('../../lib/networks');
 var point = require('../../lib/crypto/point');
 var Privkey = require('../../lib/privatekey');

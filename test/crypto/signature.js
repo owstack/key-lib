@@ -2,11 +2,12 @@
 
 var should = require('chai').should();
 
+var owsCommon = require('@owstack/ows-common');
 var keyLib = require('../..');
-var BN = keyLib.crypto.BN;
-var JSUtil = keyLib.util.js;
+var BN = owsCommon.BN;
+var JSUtil = owsCommon.util.js;
 var Signature = keyLib.crypto.Signature;
-var _ = require('lodash');
+var lodash = require('lodash');
 
 describe('Signature', function() {
 
@@ -306,7 +307,7 @@ describe('Signature', function() {
         [(Signature.SIGHASH_ANYONECANPAY | Signature.SIGHASH_SINGLE) + 1, false],
         [(Signature.SIGHASH_ANYONECANPAY | Signature.SIGHASH_ALL) - 1, false],
       ];
-      _.each(testCases, function(testCase) {
+      lodash.each(testCases, function(testCase) {
         sig.nhashtype = testCase[0];
         sig.hasDefinedHashtype().should.equal(testCase[1]);
       });

@@ -2,8 +2,9 @@
 
 var should = require('chai').should();
 
+var owsCommon = require('@owstack/ows-common');
 var keyLib = require('../..');
-var BN = keyLib.crypto.BN;
+var BN = owsCommon.BN;
 var Point = keyLib.crypto.Point;
 
 describe('Point', function() {

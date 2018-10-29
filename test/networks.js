@@ -5,7 +5,7 @@ var should = require('chai').should();
 
 var keyLib = require('..');
 var Networks = keyLib.Networks;
-var _ = require('lodash');
+var lodash = require('lodash');
 
 describe('Networks', function() {
 
@@ -100,7 +100,7 @@ describe('Networks', function() {
 
   masterConstants.forEach(function(key) {
     it('should have constant ' + key + ' for all Networks', function() {
-      _.has(Networks.get('ROOT'), key).should.equal(true);
+      lodash.has(Networks.get('ROOT'), key).should.equal(true);
     });
   });
 
