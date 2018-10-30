@@ -1,7 +1,7 @@
 KeyLib
 =======
 
-[![NPM Package](https://img.shields.io/npm/v/key-lib.svg?style=flat-square)](https://www.npmjs.org/package/key-lib)
+[![NPM Package](https://img.shields.io/npm/v/@owstack/key-lib.svg?style=flat-square)](https://www.npmjs.org/package/@owstack/key-lib)
 [![Build Status](https://img.shields.io/travis/owstack/key-lib.svg?branch=master&style=flat-square)](https://travis-ci.org/owstack/key-lib)
 [![Coverage Status](https://img.shields.io/coveralls/owstack/key-lib.svg?style=flat-square)](https://coveralls.io/r/owstack/key-lib)
 
@@ -10,11 +10,7 @@ A JavaScript cryptocurrency key library.
 ## Get Started
 
 ```
-npm install key-lib
-```
-
-```
-bower install key-lib
+npm install @owstack/key-lib
 ```
 
 ## Documentation
@@ -26,7 +22,6 @@ The complete docs are hosted here: [keyLib documentation](docs/index.md).
 * [Generate a random key](https://github.com/owstack/key-lib/blob/master/docs/examples.md#generate-a-random-address)
 * [Generate a key from a SHA256 hash](https://github.com/owstack/key-lib/blob/master/docs/examples.md#generate-a-address-from-a-sha256-hash)
 * [Import an address via WIF](https://github.com/owstack/key-lib/blob/master/docs/examples.md#import-an-address-via-wif)
-* [Sign a Bitcoin message](https://github.com/owstack/key-lib/blob/master/docs/examples.md#sign-a-bitcoin-message)
 
 ## Security
 
@@ -67,4 +62,4 @@ or create a test coverage report (you can open `coverage/lcov-report/index.html`
 
 Code released under [the MIT license](https://github.com/owstack/key-lib/blob/master/LICENSE).
 
-Copyright 2018 Open Wallet Stack. KeyLib is a trademark maintained by Open Wallet Stack.
+Copyright 2018 Open Wallet Stack.
