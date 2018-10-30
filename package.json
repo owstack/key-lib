@@ -39,7 +39,7 @@
     "elliptic": "=6.4.1"
   },
   "devDependencies": {
-    "@owstack/ows-build": "0.0.11",
+    "@owstack/ows-build": "0.0.12",
     "brfs": "^1.2.0",
     "chai": "^1.10.0",
     "gulp": "^3.8.10",
