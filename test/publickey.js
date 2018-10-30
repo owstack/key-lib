@@ -34,7 +34,7 @@ describe('PublicKey', function() {
     it('errors if a point not on the secp256k1 curve is provided', function() {
       (function() {
         return new PublicKey(new Point(1000, 1000));
-      }).should.throw('Invalid y value for curve.');
+      }).should.throw('invalid point');
     });
 
     it('errors if the argument is of an unrecognized type', function() {

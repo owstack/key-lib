@@ -14,6 +14,7 @@ var expect = require('chai').expect;
 var should = require('chai').should();
 var sinon = require('sinon');
 
+var owsCommon = require('@owstack/ows-common');
 var keyLib = require('..');
 var HDPrivateKey = keyLib.HDPrivateKey;
 var HDPublicKey = keyLib.HDPublicKey;
@@ -255,9 +256,9 @@ describe('BIP32 compliance', function() {
       var invalid = new Buffer('0000000000000000000000000000000000000000000000000000000000000000', 'hex');
       var privateKeyBuffer = new Buffer('5f72914c48581fc7ddeb944a9616389200a9560177d24f458258e5b04527bcd1', 'hex');
       var chainCodeBuffer = new Buffer('39816057bba9d952fe87fe998b7fd4d690a1bb58c2ff69141469e4d1dffb4b91', 'hex');
-      var unstubbed = keyLib.crypto.BN.prototype.toBuffer;
+      var unstubbed = owsCommon.BN.prototype.toBuffer;
       var count = 0;
-      var stub = sandbox.stub(keyLib.crypto.BN.prototype, 'toBuffer', function(args) {
+      var stub = sandbox.stub(owsCommon.BN.prototype, 'toBuffer', function(args) {
         // On the fourth call to the function give back an invalid private key
         // otherwise use the normal behavior.
         count++;
