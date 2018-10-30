@@ -1,6 +1,6 @@
 {
   "name": "@owstack/key-lib",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A JavaScript cryptocurrency key library.",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "@owstack/ows-common": "^0.0.7",
+    "@owstack/ows-common": "^0.0.8",
     "bip38": "^1.3.0",
     "bip44-constants": "^5.2.1",
     "elliptic": "=6.4.1"
