@@ -14,7 +14,6 @@ keyLib.crypto.Signature = require('./lib/crypto/signature');
 // main crypto library
 keyLib.HDPrivateKey = require('./lib/hdprivatekey.js');
 keyLib.HDPublicKey = require('./lib/hdpublickey.js');
-keyLib.Networks = require('./lib/networks');
 keyLib.PrivateKey = require('./lib/privatekey');
 keyLib.PublicKey = require('./lib/publickey');
 

@@ -7,7 +7,6 @@ var keyLib = require('../..');
 var BN = owsCommon.BN;
 var ECDSA = require('../../lib/crypto/ecdsa');
 var Hash = owsCommon.Hash;
-var Networks = require('../../lib/networks');
 var point = require('../../lib/crypto/point');
 var Privkey = require('../../lib/privatekey');
 var Pubkey = require('../../lib/publickey');

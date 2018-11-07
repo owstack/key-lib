@@ -17,7 +17,7 @@ var privateKey = new keyLib.PrivateKey('BCH');
 var privateKey = new keyLib.PrivateKey('LTC');
 ```
 
-## Generate a key from a SHA256 hash for Bitcoin network
+## Generate a key from a SHA256 hash
 ```javascript
 var value = new Buffer('correct horse battery staple');
 var hash = owsCommon.crypto.Hash.sha256(value);
@@ -30,7 +30,7 @@ var privateKey = new keyLib.PrivateKey(bn);
 ```javascript
 var wif = 'Kxr9tQED9H44gCmp6HAdmemAzU3n84H3dGkuWTKvE23JgHMW8gct';
 
-var privateKey = new keyLib.PrivateKey(wif);
+var privateKey = new keyLib.PrivateKey(wif, 'BTC');
 ```
 ## Import a key via WIF for Bitcoin Cash network
 ```javascript

@@ -7,13 +7,14 @@ var should = require('chai').should();
 
 var keyLib = require('..');
 var owsCommon = require('@owstack/ows-common');
+var networkLib = require('@owstack/network-lib');
 var Base58Check = owsCommon.encoding.Base58Check;
 var buffer = require('buffer');
 var BufferUtil = owsCommon.buffer;
 var errors = owsCommon.errors;
 var hdErrors = errors.HDPrivateKey;
 var HDPrivateKey = keyLib.HDPrivateKey;
-var Networks = keyLib.Networks;
+var Networks = networkLib.Networks;
 var lodash = require('lodash');
 
 // Setup some networks for tests.

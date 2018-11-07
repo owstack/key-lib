@@ -1,4 +1,4 @@
-# KeyLib v0.0.2
+# KeyLib v0.0.12
 
 ## Principles
 
@@ -8,7 +8,6 @@ keyLib provides a reliable API for JavaScript apps that need to create, import, 
 
 ## Key Management
 
-* [Using Different Networks](networks.md)
 * [Private Keys](privatekey.md) and [Public Keys](publickey.md)
 * [Hierarchically-derived Private and Public Keys](hierarchical.md)
 

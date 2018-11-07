@@ -14,11 +14,12 @@ var expect = require('chai').expect;
 var should = require('chai').should();
 var sinon = require('sinon');
 
-var owsCommon = require('@owstack/ows-common');
 var keyLib = require('..');
+var owsCommon = require('@owstack/ows-common');
+var networkLib = require('@owstack/network-lib');
 var HDPrivateKey = keyLib.HDPrivateKey;
 var HDPublicKey = keyLib.HDPublicKey;
-var Networks = keyLib.Networks;
+var Networks = networkLib.Networks;
 var lodash = require('lodash');
 
 // Setup some networks for tests.

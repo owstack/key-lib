@@ -4,14 +4,15 @@ var chai = require('chai');
 var should = chai.should();
 var expect = chai.expect;
 
-var owsCommon = require('@owstack/ows-common');
 var keyLib = require('..');
+var owsCommon = require('@owstack/ows-common');
+var networkLib = require('@owstack/network-lib');
 var Base58Check = owsCommon.encoding.Base58Check;
 var BN = owsCommon.BN;
 var invalidbase58_bitcoind = require('./data/bitcoind/base58_keys_invalid.json');
 var invalidbase58_bitcoinabc = require('./data/bitcoinabc/base58_keys_invalid.json');
 var invalidbase58_litecoin = require('./data/litecoin/base58_keys_invalid.json');
-var Networks = keyLib.Networks;
+var Networks = networkLib.Networks;
 var Point = keyLib.crypto.Point;
 var PrivateKey = keyLib.PrivateKey;
 var validbase58_bitcoind = require('./data/bitcoind/base58_keys_valid.json');
