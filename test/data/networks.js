@@ -9,6 +9,8 @@ Networks.add([{
 	symbol: 'BTC',
 	coin: Bip44['BTC'] ^ 0x80000000,
 	protocol: 'bitcoin',
+	preference: 'BTC',
+  alias: 'livenet',
 	prefix: {
 	  pubkeyhash: 0x00,
 	  privatekey: 0x80,
@@ -34,6 +36,8 @@ Networks.add([{
 	symbol: 'BCH',
 	coin: Bip44['BCH'] ^ 0x80000000,
 	protocol: 'bitcoincash',
+	preference: 'BCH',
+  alias: 'livenet',
 	prefix: {
 	  pubkeyhash: 0x00,
 	  privatekey: 0x80,
@@ -58,6 +62,8 @@ Networks.add([{
 	symbol: 'LTC',
 	coin: Bip44['LTC'] ^ 0x80000000,
 	protocol: 'litecoin',
+	preference: 'LTC',
+  alias: 'livenet',
 	prefix: {
 		pubkeyhash: 0x30,
 	  privatekey: 0xb0,
@@ -84,6 +90,8 @@ Networks.add([{
 	symbol: 'BCHTEST',
 	coin: 0x00000001 ^ 0x80000000,
 	protocol: 'bchtest',
+	preference: 'BCH',
+  alias: 'testnet',
 	prefix: {
 		pubkeyhash: 0x6f,
 	  privatekey: 0xef,
@@ -102,4 +110,54 @@ Networks.add([{
     'testnet-seed.bitcoin.schildbach.de'
 	],
 	indexBy: Networks.indexAll
+}, {
+  name: 'Testnet',
+  symbol: 'TESTNET',
+  coin: Bip44['TESTNET'] ^ 0x80000000,
+  protocol: 'testnet',
+  alias: 'testnet',
+  preference: 'BTC',
+  prefix: {
+    pubkeyhash: 0x6f,
+    privatekey: 0xef,
+    scripthash: 0xc4
+  },
+  version: {
+    xpubkey: 0x043587cf,
+    xprivkey: 0x04358394
+  },
+  networkMagic: 0x0b110907,
+  port: 18333,
+  dnsSeeds: [
+    'testnet-seed.bitcoin.petertodd.org',
+    'testnet-seed.bluematt.me',
+    'testnet-seed.alexykot.me',
+    'testnet-seed.bitcoin.schildbach.de'
+  ],
+  indexBy: Networks.indexAll
+}, {
+  name: 'Regtest',
+  symbol: 'REGTEST',
+  coin: Bip44['TESTNET'] ^ 0x80000000,
+  protocol: 'regtest',
+  alias: 'testnet',
+  preference: 'BTC',
+  prefix: {
+    pubkeyhash: 0x6f,
+    privatekey: 0xef,
+    scripthash: 0xc4
+  },
+  version: {
+    xpubkey: 0x043587cf,
+    xprivkey: 0x04358394
+  },
+  networkMagic: 0xdab5bffa,
+  port: 18444,
+  dnsSeeds: [],
+  indexBy: [
+    'name',
+    'symbol',
+    'protocol',
+    'port'
+  ]
 }]);
