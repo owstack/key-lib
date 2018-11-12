@@ -61,7 +61,7 @@ describe('HDPrivate key interface', function() {
   it('should make a new private key from random for BTC', function() {
     var key = new HDPrivateKey('BTC');
     should.exist(key.xprivkey);
-    key.network.symbol.should.equal('BTC');
+    key.network.code.should.equal('BTC');
   });
 
   it('should make a new private key from random for testnet', function() {
