@@ -8,7 +8,6 @@ var should = require('chai').should();
 
 var keyLib = require('..');
 var owsCommon = require('@owstack/ows-common');
-var networkLib = require('@owstack/network-lib');
 var Base58Check = owsCommon.encoding.Base58Check;
 var buffer = require('buffer');
 var BufferUtil = owsCommon.buffer;
@@ -16,7 +15,7 @@ var errors = owsCommon.errors;
 var hdErrors = owsCommon.errors.HDPublicKey;
 var HDPrivateKey = keyLib.HDPrivateKey;
 var HDPublicKey = keyLib.HDPublicKey;
-var Networks = networkLib.Networks;
+var Networks = require('@owstack/network-lib');
 var lodash = require('lodash');
 
 var xprivkey = 'xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi';

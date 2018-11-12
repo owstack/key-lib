@@ -16,10 +16,9 @@ var sinon = require('sinon');
 
 var keyLib = require('..');
 var owsCommon = require('@owstack/ows-common');
-var networkLib = require('@owstack/network-lib');
 var HDPrivateKey = keyLib.HDPrivateKey;
 var HDPublicKey = keyLib.HDPublicKey;
-var Networks = networkLib.Networks;
+var Networks = require('@owstack/network-lib');
 var lodash = require('lodash');
 
 // Setup some networks for tests.

@@ -5,9 +5,8 @@ var should = require('chai').should();
 
 var keyLib = require('..');
 var owsCommon = require('@owstack/ows-common');
-var networkLib = require('@owstack/network-lib');
 var BN = owsCommon.BN;
-var Networks = networkLib.Networks;
+var Networks = require('@owstack/network-lib');
 var Point = keyLib.crypto.Point;
 var PublicKey = keyLib.PublicKey;
 var PrivateKey = keyLib.PrivateKey;
