@@ -15,10 +15,16 @@ Networks.add([{
 	  privatekey: 0x80,
 	  scripthash: 0x05,
 	},
-	version: {
-	  xpubkey: 0x0488b21e,
-	  xprivkey: 0x0488ade4
-	},
+  version: { // see SLIP132
+    xpubkey: {
+      bytes: 0x0488b21e,
+      text: 'xpub'
+    },
+    xprivkey: {
+      bytes: 0x0488ade4,
+      text: 'xprv'
+    }
+  },
   networkMagic: 0xf9beb4d9,
 	port: 8333,
 	dnsSeeds: [
@@ -41,10 +47,16 @@ Networks.add([{
 	  privatekey: 0x80,
 	  scripthash: 0x05,
 	},
-	version: {
-	  xpubkey: 0x03f72812, // 'qpub..' (no BCH version strings registered); see SLIP132
-	  xprivkey: 0x03f723d8 // 'qprv..' (no BCH version strings registered); see SLIP132
-	},
+  version: { // see SLIP132 (no BCH version strings registered)
+    xpubkey: {
+      bytes: 0x03f72812,
+      text: 'qpub'
+    },
+    xprivkey: {
+      bytes: 0x03f723d8,
+      text: 'qprv'
+    }
+  },
   networkMagic: 0xe3e1f3e8,
 	port: 8333,
 	dnsSeeds: [
@@ -67,10 +79,16 @@ Networks.add([{
 	  scripthash: 0x05,
 	  scripthash2: 0x32,
 	},
-	version: {
-	  xpubkey: 0x019da462,
-	  xprivkey: 0x019d9cfe,
-	},
+  version: { // see SLIP132
+    xpubkey: {
+      bytes: 0x019da462,
+      text: 'Ltub'
+    },
+    xprivkey: {
+      bytes: 0x019d9cfe,
+      text: 'Ltpv'
+    }
+  },
   networkMagic: 0xfbc0b6db,
 	port: 9333,
 	dnsSeeds: [
@@ -93,10 +111,16 @@ Networks.add([{
 	  privatekey: 0xef,
 	  scripthash: 0xc4
 	},
-	version: {
-	  xpubkey: 0x0435dbaa, // 'tqpb..' (no BCH testnet version strings registered); see SLIP132
-	  xprivkey: 0x0435dc2e // 'tqpv..' (no BCH testnet version strings registered); see SLIP132
-	},
+  version: { // see SLIP132 (no BCH version strings registered)
+    xpubkey: {
+      bytes: 0x0435dbaa,
+      text: 'tqpb'
+    },
+    xprivkey: {
+      bytes: 0x0435dc2e,
+      text: 'tqpv'
+    }
+  },
   networkMagic: 0x0b110907,
 	port: 18333,
 	dnsSeeds: [
@@ -117,9 +141,15 @@ Networks.add([{
     privatekey: 0xef,
     scripthash: 0xc4
   },
-  version: {
-    xpubkey: 0x043587cf,
-    xprivkey: 0x04358394
+  version: { // see SLIP132
+    xpubkey: {
+      bytes: 0x043587cf,
+      text: 'tpub'
+    },
+    xprivkey: {
+      bytes: 0x04358394,
+      text: 'tprv'
+    }
   },
   networkMagic: 0x0b110907,
   port: 18333,
@@ -128,6 +158,38 @@ Networks.add([{
     'testnet-seed.bluematt.me',
     'testnet-seed.alexykot.me',
     'testnet-seed.bitcoin.schildbach.de'
+  ]
+}, {
+  name: 'Testnet',
+  code: 'LTCTEST',
+  coin: Bip44['TESTNET'] ^ 0x80000000,
+  protocol: 'testnet',
+  alias: 'testnet',
+  preference: 'LTC',
+  prefix: {
+    pubkeyhash: 0x6f,
+    privatekey: 0xef,
+    scripthash: 0x3a
+  },
+  version: { // see SLIP132
+    xpubkey: {
+      bytes: 0x0436f6e1,
+      text: 'ttub'
+    },
+    xprivkey: {
+      bytes: 0x0436ef7d,
+      text: 'ttpv'
+    }
+  },
+  networkMagic: 0x0b110907,
+  port: 18333,
+  dnsSeeds: [
+    'dnsseed.litecointools.com',
+    'dnsseed.litecoinpool.org',
+    'dnsseed.ltc.xurious.com',
+    'dnsseed.koin-project.com',
+    'seed-a.litecoin.loshan.co.uk',
+    'dnsseed.thrasher.io'
   ]
 }, {
   name: 'Regtest',
@@ -141,9 +203,15 @@ Networks.add([{
     privatekey: 0xef,
     scripthash: 0xc4
   },
-  version: {
-    xpubkey: 0x043587cf,
-    xprivkey: 0x04358394
+  version: { // see SLIP132
+    xpubkey: {
+      bytes: 0x043587cf,
+      text: 'tpub'
+    },
+    xprivkey: {
+      bytes: 0x04358394,
+      text: 'tprv'
+    }
   },
   networkMagic: 0xdab5bffa,
   port: 18444,

@@ -22,7 +22,6 @@ var validbase58_litecoin = require('./data/litecoin/base58_keys_valid.json');
 require('./data/networks');
 
 describe('PrivateKey', function() {
-
   var hex = '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a';
   var hex2 = '8080808080808080808080808080808080808080808080808080808080808080';
   var buf = new Buffer(hex, 'hex');
@@ -82,8 +81,14 @@ describe('PrivateKey', function() {
         scripthash: 0x08
       },
       version: {
-        xpubkey: 0x0278b20e,
-        xprivkey: 0x0278ade4
+        xpubkey: {
+          bytes: 0x0278b20e,
+          text: ''
+        },
+        xprivkey: {
+          bytes: 0x0278ade4,
+          text: ''
+        }
       },
       networkMagic: 0xf9beb4fe,
       port: 20001,
@@ -134,7 +139,6 @@ describe('PrivateKey', function() {
   });
 
   describe('bitcoind compliance', function() {
-
     validbase58_bitcoind.map(function(d) {
       if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
@@ -156,11 +160,9 @@ describe('PrivateKey', function() {
         }).to.throw(Error);
       });
     });
-
   });
 
   describe('bitcoinabc compliance', function() {
-
     validbase58_bitcoinabc.map(function(d) {
       if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
@@ -182,17 +184,15 @@ describe('PrivateKey', function() {
         }).to.throw(Error);
       });
     });
-
   });
 
   describe('litecoin compliance', function() {
-
-    validbase58_litecoin.map(function(d){
+    validbase58_litecoin.map(function(d) {
       if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
           var network = Networks.get('LTC');
           if (d[2].isTestnet) {
-            network = Networks.get('TESTNET');
+            network = Networks.get('LTCTEST');
           }
           var key = new PrivateKey(d[0], network);
           key.compressed.should.equal(d[2].isCompressed);
@@ -208,11 +208,9 @@ describe('PrivateKey', function() {
         }).to.throw(Error);
       });
     });
-
   });
 
   describe('instantiation', function() {
-
     it('should not be able to instantiate private key greater than N', function() {
       expect(function() {
         return new PrivateKey(Point.getN());
@@ -282,11 +280,9 @@ describe('PrivateKey', function() {
       var privkey = new PrivateKey();
       new PrivateKey(privkey).should.equal(privkey);
     });
-
   });
 
   describe('#json/object', function() {
-
     it('should input/output json', function() {
       var json = JSON.stringify({
         bn: '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a',
@@ -322,7 +318,6 @@ describe('PrivateKey', function() {
   });
 
   it('coverage: public key cache', function() {
-
     expect(function() {
       var privateKey = new PrivateKey();
       /* jshint unused: false */
@@ -332,16 +327,13 @@ describe('PrivateKey', function() {
   });
 
   describe('#toString', function() {
-
     it('should output this private key correctly', function() {
       var privkey = PrivateKey.fromWIF(wifBTCUncompressed);
       privkey.toWIF().should.equal(wifBTCUncompressed);
     });
-
   });
 
   describe('#inspect', function() {
-
     it('should output known BTC key for console', function() {
       var privkey = PrivateKey.fromWIF('L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m');
       privkey.inspect().should.equal(
@@ -372,7 +364,6 @@ describe('PrivateKey', function() {
   });
 
   describe('#getValidationError', function() {
-
     it('should get an error because private key greater than N', function() {
       var n = Point.getN();
       var a = PrivateKey.getValidationError(n);
@@ -393,11 +384,9 @@ describe('PrivateKey', function() {
       var a = PrivateKey.isValid('L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m');
       a.should.equal(true);
     });
-
   });
 
   describe('buffer serialization', function() {
-
     it('returns an expected value when creating a PrivateKey from a buffer', function() {
       var privkey = new PrivateKey(BN.fromBuffer(buf));
       privkey.toString().should.equal(buf.toString('hex'));
@@ -435,7 +424,6 @@ describe('PrivateKey', function() {
   });
 
   describe('#toBigNumber', function() {
-
     it('should output known BN', function() {
       var a = BN.fromBuffer(buf);
       var privkey = new PrivateKey(a);
@@ -445,27 +433,22 @@ describe('PrivateKey', function() {
   });
 
   describe('#fromRandom', function() {
-
     it('should set bn gt 0 and lt n, and should be compressed', function() {
       var privkey = PrivateKey.fromRandom();
       privkey.bn.gt(new BN(0)).should.equal(true);
       privkey.bn.lt(Point.getN()).should.equal(true);
       privkey.compressed.should.equal(true);
     });
-
   });
 
   describe('#fromWIF', function() {
-
     it('should parse this compressed BTC private key correctly', function() {
       var privkey = PrivateKey.fromWIF(wifBTC);
       privkey.toWIF().should.equal(wifBTC);
     });
-
   });
 
   describe('#toWIF', function() {
-
     it('should parse this compressed LTC private key correctly', function() {
       var privkey = PrivateKey.fromWIF(wifLTC);
       privkey.toWIF().should.equal(wifLTC);
@@ -475,11 +458,9 @@ describe('PrivateKey', function() {
       var privkey = PrivateKey.fromWIF(wifTestnet);
       privkey.toWIF().should.equal(wifTestnet);
     });
-
   });
 
   describe('#fromString', function() {
-
     it('should parse this uncompressed LTC private key correctly', function() {
       var privkey = PrivateKey.fromString(wifLTCUncompressed);
       privkey.toWIF().should.equal(wifLTCUncompressed);
@@ -489,20 +470,16 @@ describe('PrivateKey', function() {
       var privkey = PrivateKey.fromString(wifTestnetUncompressed);
       privkey.toWIF().should.equal(wifTestnetUncompressed);
     });
-
   });
 
   describe('#toString', function() {
-
     it('should parse this uncompressed BTC private key correctly', function() {
       var privkey = PrivateKey.fromString(wifBTCUncompressed);
       privkey.toString().should.equal("96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a");
     });
-
   });
 
   describe('#toPublicKey', function() {
-
     it('should convert this known PrivateKey to known PublicKey', function() {
       var privhex = '906977a061af29276e40bf377042ffbde414e496ae2260bbf1fa9d085637bfff';
       var pubhex = '02a1633cafcc01ebfb6d78e39f687a1f0995c62fc95f51ead10a02ee0be551b5dc';
@@ -531,16 +508,12 @@ describe('PrivateKey', function() {
       var pubkey = privkey.toPublicKey();
       pubkey.compressed.should.equal(false);
     });
-
   });
 
   describe('#toAESKey', function() {
-
     it('should be ok', function() {
       var privKey = new PrivateKey('09458c090a69a38368975fb68115df2f4b0ab7d1bc463fc60c67aa1730641d6c');
       privKey.toAESKey().should.be.equal('2HvmUYBSD0gXLea6z0n7EQ==');
     });
-
   });
-
 });
