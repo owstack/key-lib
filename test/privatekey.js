@@ -70,9 +70,9 @@ describe('PrivateKey', function() {
 
   it('should create a private key from a custom network WIF string', function() {
     var nmc = {
-      name: 'namecoin',
-      symbol: 'nam',
-      coin: 0x81234567,
+      description: 'namecoin',
+      name: 'nam',
+      coinIndex: 0x81234567,
       protocol: 'namecoin',
       prefix: {
         pubkeyhash: 0x34,

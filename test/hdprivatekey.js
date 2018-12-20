@@ -61,13 +61,13 @@ describe('HDPrivate key interface', function() {
   it('should make a new private key from random for BTC', function() {
     var key = new HDPrivateKey('BTC');
     should.exist(key.xprivkey);
-    key.network.code.should.equal('BTC');
+    key.network.name.should.equal('BTC');
   });
 
   it('should make a new private key from random for testnet', function() {
     var key = new HDPrivateKey('TESTNET');
     should.exist(key.xprivkey);
-    key.network.name.should.equal('Testnet');
+    key.network.name.should.equal('TESTNET');
   });
 
   it('should not be able to change read-only properties', function() {

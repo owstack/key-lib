@@ -4,11 +4,10 @@ var Bip44 = require('bip44-constants');
 var Networks = require('@owstack/network-lib');
 
 Networks.add([{
-	name: 'Bitcoin',
-	code: 'BTC',
-	coin: Bip44['BTC'] ^ 0x80000000,
+	description: 'Bitcoin',
+	name: 'BTC',
+	coinIndex: Bip44['BTC'] ^ 0x80000000,
 	protocol: 'bitcoin',
-	preference: 'BTC',
   alias: 'livenet',
 	prefix: {
 	  pubkeyhash: 0x00,
@@ -36,11 +35,10 @@ Networks.add([{
     'bitseed.xf2.org'
 	]
 }, {
-	name: 'Bitcoin Cash',
-	code: 'BCH',
-	coin: Bip44['BCH'] ^ 0x80000000,
+	description: 'Bitcoin Cash',
+	name: 'BCH',
+	coinIndex: Bip44['BCH'] ^ 0x80000000,
 	protocol: 'bitcoincash',
-	preference: 'BCH',
   alias: 'livenet',
 	prefix: {
 	  pubkeyhash: 0x00,
@@ -67,11 +65,10 @@ Networks.add([{
     'seed.deadalnix.me'
 	]
 }, {
-	name: 'Litecoin',
-	code: 'LTC',
-	coin: Bip44['LTC'] ^ 0x80000000,
+	description: 'Litecoin',
+	name: 'LTC',
+	coinIndex: Bip44['LTC'] ^ 0x80000000,
 	protocol: 'litecoin',
-	preference: 'LTC',
   alias: 'livenet',
 	prefix: {
 		pubkeyhash: 0x30,
@@ -100,11 +97,10 @@ Networks.add([{
     'dnsseed.thrasher.io'
 	]
 }, {
-	name: 'BCH Testnet',
-	code: 'BCHTEST',
-	coin: 0x00000001 ^ 0x80000000,
+	description: 'BCH Testnet',
+	name: 'BCHTEST',
+	coinIndex: 0x00000001 ^ 0x80000000,
 	protocol: 'bchtest',
-	preference: 'BCH',
   alias: 'testnet',
 	prefix: {
 		pubkeyhash: 0x6f,
@@ -130,12 +126,11 @@ Networks.add([{
     'testnet-seed.bitcoin.schildbach.de'
 	]
 }, {
-  name: 'Testnet',
-  code: 'TESTNET',
-  coin: Bip44['TESTNET'] ^ 0x80000000,
+  description: 'Testnet',
+  name: 'TESTNET',
+  coinIndex: Bip44['TESTNET'] ^ 0x80000000,
   protocol: 'testnet',
   alias: 'testnet',
-  preference: 'BTC',
   prefix: {
     pubkeyhash: 0x6f,
     privatekey: 0xef,
@@ -160,12 +155,11 @@ Networks.add([{
     'testnet-seed.bitcoin.schildbach.de'
   ]
 }, {
-  name: 'Testnet',
-  code: 'LTCTEST',
-  coin: Bip44['TESTNET'] ^ 0x80000000,
+  description: 'Testnet',
+  name: 'LTCTEST',
+  coinIndex: Bip44['TESTNET'] ^ 0x80000000,
   protocol: 'testnet',
   alias: 'testnet',
-  preference: 'LTC',
   prefix: {
     pubkeyhash: 0x6f,
     privatekey: 0xef,
@@ -192,12 +186,11 @@ Networks.add([{
     'dnsseed.thrasher.io'
   ]
 }, {
-  name: 'Regtest',
-  code: 'REGTEST',
-  coin: Bip44['TESTNET'] ^ 0x80000000,
+  description: 'Regtest',
+  name: 'REGTEST',
+  coinIndex: Bip44['TESTNET'] ^ 0x80000000,
   protocol: 'regtest',
   alias: 'testnet',
-  preference: 'BTC',
   prefix: {
     pubkeyhash: 0x6f,
     privatekey: 0xef,
