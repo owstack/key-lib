@@ -22,7 +22,7 @@ var xprivkey = 'xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVv
 var xpubkey = 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8';
 var xpubkeyLTC = 'Ltub2SSUS19CirucWHzb9rQGD4zJMoDeFhPBYqfTJTdHmFLe4GgzYHb89c1UuNawX7X5HYPqvNgC8zJWuJP9goP3Ndcadw3Jx4XspPszy5nEyCG';
 var xpubkeyTestnet = 'tpubD6NzVbkrYhZ4WZaiWHz59q5EQ61bd6dUYfU4ggRWAtNAyyYRNWT6ktJ7UHJEXURvTfTfskFQmK7Ff4FRkiRN5wQH8nkGAb6aKB4Yyeqsw5m';
-var json = '{"network":"BTC","depth":0,"fingerPrint":876747070,"parentFingerPrint":0,"childIndex":0,"chainCode":"873dff81c02f525623fd1fe5167eac3a55a049de3d314bb42ee227ffed37d508","publicKey":"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2","checksum":-1421395167,"xpubkey":"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}';
+var json = '{"network":"btc","depth":0,"fingerPrint":876747070,"parentFingerPrint":0,"childIndex":0,"chainCode":"873dff81c02f525623fd1fe5167eac3a55a049de3d314bb42ee227ffed37d508","publicKey":"0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2","checksum":-1421395167,"xpubkey":"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}';
 var derived_0_1_200000 = 'xpub6BqyndF6rkBNTV6LXwiY8Pco8aqctqq7tGEUdA8fmGDTnDJphn2fmxr3eM8Lm3m8TrNUsLbEjHvpa3adBU18YpEx4tp2Zp6nqax3mQkudhX';
 
 describe('HDPublicKey interface', function() {
@@ -136,7 +136,7 @@ describe('HDPublicKey interface', function() {
     });
 
     it('if a network is provided, validates that data corresponds to it', function() {
-      compareType(HDPublicKey.getSerializedError(xpubkey, Networks.get('LTC')), errors.InvalidNetwork);
+      compareType(HDPublicKey.getSerializedError(xpubkey, Networks.get('ltc')), errors.InvalidNetwork);
     });
 
     it('recognizes invalid network arguments', function() {
@@ -145,7 +145,7 @@ describe('HDPublicKey interface', function() {
 
     it('recognizes a valid network', function() {
       expect(HDPublicKey.getSerializedError(xpubkey)).to.equal(null);
-      expect(HDPublicKey.getSerializedError(xpubkey, 'BTC')).to.equal(null);
+      expect(HDPublicKey.getSerializedError(xpubkey, 'btc')).to.equal(null);
     });
 
   });
@@ -160,9 +160,9 @@ describe('HDPublicKey interface', function() {
     var ltcNetwork = new HDPublicKey(xpubkeyLTC);
     var testnetNetwork = new HDPublicKey(xpubkeyTestnet);
 
-    btcNetwork.publicKey.network.should.equal(Networks.get('BTC'));
-    ltcNetwork.publicKey.network.should.equal(Networks.get('LTC'));
-    testnetNetwork.publicKey.network.should.equal(Networks.get('TESTNET'));
+    btcNetwork.publicKey.network.should.equal(Networks.get('btc'));
+    ltcNetwork.publicKey.network.should.equal(Networks.get('ltc'));
+    testnetNetwork.publicKey.network.should.equal(Networks.get('testnet'));
   });
 
   it('inspect() displays correctly', function() {
@@ -185,7 +185,7 @@ describe('HDPublicKey interface', function() {
   describe('conversion to different formats', function() {
 
     var plainObject = {
-      'network': 'BTC',
+      'network': 'btc',
       'depth': 0,
       'fingerPrint': 876747070,
       'parentFingerPrint': 0,

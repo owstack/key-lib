@@ -20,7 +20,7 @@ var lodash = require('lodash');
 require('./data/networks');
 
 var xprivkey = 'xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi';
-var json = '{"network":"BTC","depth":0,"fingerPrint":876747070,"parentFingerPrint":0,"childIndex":0,"chainCode":"873dff81c02f525623fd1fe5167eac3a55a049de3d314bb42ee227ffed37d508","privateKey":"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35","checksum":-411132559,"xprivkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi"}';
+var json = '{"network":"btc","depth":0,"fingerPrint":876747070,"parentFingerPrint":0,"childIndex":0,"chainCode":"873dff81c02f525623fd1fe5167eac3a55a049de3d314bb42ee227ffed37d508","privateKey":"e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35","checksum":-411132559,"xprivkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi"}';
 
 describe('HDPrivate key interface', function() {
 
@@ -59,21 +59,22 @@ describe('HDPrivate key interface', function() {
   });
 
   it('should make a new private key from random for BTC', function() {
-    var key = new HDPrivateKey('BTC');
+    var key = new HDPrivateKey('btc');
     should.exist(key.xprivkey);
-    key.network.name.should.equal('BTC');
+    key.network.name.should.equal('btc');
   });
 
   it('should make a new private key from random for testnet', function() {
-    var key = new HDPrivateKey('TESTNET');
+    var key = new HDPrivateKey('testnet');
     should.exist(key.xprivkey);
-    key.network.name.should.equal('TESTNET');
+    key.network.name.should.equal('testnet');
   });
 
   it('should not be able to change read-only properties', function() {
-    var hdkey = new HDPrivateKey();
+    var key = new HDPrivateKey();
+    key.network.name.should.equal('root');
     expect(function() {
-      hdkey.fingerPrint = 'notafingerprint';
+      key.fingerPrint = 'notafingerprint';
     }).to.throw(TypeError);
   });
 
@@ -110,10 +111,10 @@ describe('HDPrivate key interface', function() {
     var testnetKey = new HDPrivateKey('tprv8ZgxMBicQKsPdEeU2KiGFnUgRGriMnQxrwrg6FWCBg4jeiidHRyCCdA357kfkZiGaXEapWZsGDKikeeEbvgXo3UmEdbEKNdQH9VXESmGuUK');
 
     it('matches the network', function() {
-      masterKey.publicKey.network.should.equal(Networks.get('ROOT'));
-      ltcKey.publicKey.network.should.equal(Networks.get('LTC'));
-      btcKey.publicKey.network.should.equal(Networks.get('BTC'));
-      testnetKey.publicKey.network.should.equal(Networks.get('TESTNET'));
+      masterKey.publicKey.network.should.equal(Networks.get('root'));
+      ltcKey.publicKey.network.should.equal(Networks.get('ltc'));
+      btcKey.publicKey.network.should.equal(Networks.get('btc'));
+      testnetKey.publicKey.network.should.equal(Networks.get('testnet'));
     });
 
     it('cache for xpubkey works', function() {
@@ -169,12 +170,12 @@ describe('HDPrivate key interface', function() {
 
   it('recognizes that the wrong network was asked for', function() {
     expect(
-      HDPrivateKey.getSerializedError(xprivkey, 'LTC') instanceof errors.InvalidNetwork
+      HDPrivateKey.getSerializedError(xprivkey, 'ltc') instanceof errors.InvalidNetwork
     ).to.equal(true);
   });
 
   it('recognizes the correct network', function() {
-    expect(HDPrivateKey.getSerializedError(xprivkey, 'BTC')).to.equal(null);
+    expect(HDPrivateKey.getSerializedError(xprivkey, 'btc')).to.equal(null);
   });
 
   describe('on creation from seed', function() {
@@ -294,7 +295,7 @@ describe('HDPrivate key interface', function() {
   describe('conversion to plain object/json', function() {
 
     var plainObject = {
-      'network': 'BTC',
+      'network': 'btc',
       'depth': 0,
       'fingerPrint': 876747070,
       'parentFingerPrint': 0,

@@ -55,15 +55,15 @@ describe('PrivateKey', function() {
   });
 
   it('should create a new random private key with only one argument', function() {
-    var a = new PrivateKey(Networks.get('BTC'));
+    var a = new PrivateKey(Networks.get('btc'));
     should.exist(a);
     should.exist(a.bn);
 
-    var a = new PrivateKey('BCH');
+    var a = new PrivateKey('bch');
     should.exist(a);
     should.exist(a.bn);
 
-    var a = new PrivateKey('LTC');
+    var a = new PrivateKey('ltc');
     should.exist(a);
     should.exist(a.bn);
   });
@@ -107,15 +107,15 @@ describe('PrivateKey', function() {
   });
 
   it('should create a new random private key with empty data', function() {
-    var a = new PrivateKey(null, Networks.get('BTC'));
+    var a = new PrivateKey(null, Networks.get('btc'));
     should.exist(a);
     should.exist(a.bn);
 
-    var a = new PrivateKey(null, 'BCH');
+    var a = new PrivateKey(null, 'bch');
     should.exist(a);
     should.exist(a.bn);
 
-    var a = new PrivateKey(null, 'LTC');
+    var a = new PrivateKey(null, 'ltc');
     should.exist(a);
     should.exist(a.bn);
   });
@@ -142,9 +142,9 @@ describe('PrivateKey', function() {
     validbase58_bitcoind.map(function(d) {
       if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
-          var network = Networks.get('BTC');
+          var network = Networks.get('btc');
           if (d[2].isTestnet) {
-            network = Networks.get('TESTNET');
+            network = Networks.get('testnet');
           }
           var key = new PrivateKey(d[0], network);
           key.compressed.should.equal(d[2].isCompressed);
@@ -166,9 +166,9 @@ describe('PrivateKey', function() {
     validbase58_bitcoinabc.map(function(d) {
       if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
-          var network = Networks.get('BCH');
+          var network = Networks.get('bch');
           if (d[2].isTestnet) {
-            network = Networks.get('BCHTEST');
+            network = Networks.get('bchtest');
           }
           var key = new PrivateKey(d[0], network);
           key.compressed.should.equal(d[2].isCompressed);
@@ -190,9 +190,9 @@ describe('PrivateKey', function() {
     validbase58_litecoin.map(function(d) {
       if (d[2].isPrivkey) {
         it('should instantiate WIF private key ' + d[0] + ' with correct properties', function() {
-          var network = Networks.get('LTC');
+          var network = Networks.get('ltc');
           if (d[2].isTestnet) {
-            network = Networks.get('LTCTEST');
+            network = Networks.get('ltctest');
           }
           var key = new PrivateKey(d[0], network);
           key.compressed.should.equal(d[2].isCompressed);
@@ -219,7 +219,7 @@ describe('PrivateKey', function() {
 
     it('should not be able to instantiate private key because of network mismatch', function() {
       expect(function() {
-        return new PrivateKey('L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m', 'LTC');
+        return new PrivateKey('L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m', 'ltc');
       }).to.throw('Private key network mismatch');
     });
 
@@ -241,7 +241,7 @@ describe('PrivateKey', function() {
 
     it('should not be able to instantiate private key WIF because of network mismatch', function() {
       expect(function(){
-        var a = new PrivateKey(wifNamecoin, 'BTC');
+        var a = new PrivateKey(wifNamecoin, 'btc');
       }).to.throw('Invalid network');
     });
 
@@ -272,7 +272,7 @@ describe('PrivateKey', function() {
     });
 
     it('should create a BTC private key', function() {
-      var privkey = new PrivateKey(BN.fromBuffer(buf), 'BTC');
+      var privkey = new PrivateKey(BN.fromBuffer(buf), 'btc');
       privkey.toWIF().should.equal(wifBTC);
     });
 
@@ -287,14 +287,14 @@ describe('PrivateKey', function() {
       var json = JSON.stringify({
         bn: '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a',
         compressed: false,
-        network: 'BTC'
+        network: 'btc'
       });
       var key = PrivateKey.fromObject(JSON.parse(json));
       JSON.stringify(key).should.equal(json);
     });
 
     it('input json should correctly initialize network field', function() {
-      ['BTC', 'BCH', 'LTC', 'TESTNET'].forEach(function (net) {
+      ['btc', 'bch', 'ltc', 'testnet'].forEach(function (net) {
         var pk = PrivateKey.fromObject({
           bn: '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a',
           compressed: false,
@@ -337,29 +337,29 @@ describe('PrivateKey', function() {
     it('should output known BTC key for console', function() {
       var privkey = PrivateKey.fromWIF('L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m');
       privkey.inspect().should.equal(
-        '<PrivateKey: b9de6e778fe92aa7edb69395556f843f1dce0448350112e14906efc2a80fa61a, network: BTC>'
+        '<PrivateKey: b9de6e778fe92aa7edb69395556f843f1dce0448350112e14906efc2a80fa61a, network: btc>'
       );
     });
 
     it('should output known BCH key for console', function() {
       // Bitcoin and Bitcoin Cash private keys share the same version bytes. Since the default network is BTC
       // we must specify that the input key is BCH to ensure the output key information identifes a BCH key.
-      var privkey = PrivateKey.fromWIF('Kz6UJmQACJmLtaQj5A3JAge4kVTNQ8gbvXuwbmCj7bsaabudb3RD', 'BCH');
+      var privkey = PrivateKey.fromWIF('Kz6UJmQACJmLtaQj5A3JAge4kVTNQ8gbvXuwbmCj7bsaabudb3RD', 'bch');
       privkey.inspect().should.equal(
-        '<PrivateKey: 55c9bccb9ed68446d1b75273bbce89d7fe013a8acd1625514420fb2aca1a21c4, network: BCH>'
+        '<PrivateKey: 55c9bccb9ed68446d1b75273bbce89d7fe013a8acd1625514420fb2aca1a21c4, network: bch>'
       );
     });
 
     it('should output known LTC key for console', function() {
       var privkey = PrivateKey.fromWIF('T5vjkWhLbgjwfR3bcnzAP3BShM6gUDhVjjpCTZqGga3k6VVqHkzu');
       privkey.inspect().should.equal(
-        '<PrivateKey: 55c9bccb9ed68446d1b75273bbce89d7fe013a8acd1625514420fb2aca1a21c4, network: LTC>'
+        '<PrivateKey: 55c9bccb9ed68446d1b75273bbce89d7fe013a8acd1625514420fb2aca1a21c4, network: ltc>'
       );
     });
 
     it('outputs "uncompressed" for uncompressed imported WIFs', function() {
       var privkey = PrivateKey.fromWIF(wifBTCUncompressed);
-      privkey.inspect().should.equal('<PrivateKey: 96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a, network: BTC, uncompressed>');
+      privkey.inspect().should.equal('<PrivateKey: 96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a, network: btc, uncompressed>');
     });
   });
 
@@ -417,7 +417,7 @@ describe('PrivateKey', function() {
     // TODO: enable for v1.0.0 when toBuffer is changed to always be 32 bytes long
     // it('should return buffer with length equal 32', function() {
     //   var bn = BN.fromBuffer(buf.slice(0, 31));
-    //   var privkey = new PrivateKey(bn, 'BTC');
+    //   var privkey = new PrivateKey(bn, 'btc');
     //   var expected = Buffer.concat([ new Buffer([0]), buf.slice(0, 31) ]);
     //   privkey.toBuffer().toString('hex').should.equal(expected.toString('hex'));
     // });

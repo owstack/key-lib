@@ -27,7 +27,7 @@ describe('ECDSA', function() {
   ecdsa.hashbuf = Hash.sha256(new Buffer('test data'));
   ecdsa.privkey = new Privkey(BN.fromBuffer(
     new Buffer('fee0a1f7afebf9d2a5a80c0c98a31c709681cce195cbcd06342b517970c0be1e', 'hex')
-  ), 'BTC');
+  ), 'btc');
   ecdsa.privkey2pubkey();
 
   describe('#set', function() {
