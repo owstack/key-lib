@@ -105,7 +105,7 @@ describe('HDPrivate key interface', function() {
   });
 
   describe('public key', function() {
-    var masterKey = new HDPrivateKey('mprv6Hs7DX2CMZ52gHffKzY3hCCn28X3sPDatiKWh7kgcxvdSJfmYwVkDsTgeK2UY3xiPm52ePPnNpnV5GerBL8Yjb7nPga2rxHiPP2y3PGgsjG');
+    var masterKey = new HDPrivateKey('rprv7v2RjrNn6xnRxmsMPa9aYxq2CW1s4AoAD5bpJXyvebYYsnEHWoMcDrgV9oRj1yxnyfMxiacveX66a3KLfb9gqL1H4tMjLPvBwCTvyxbvcQ3');
     var ltcKey = new HDPrivateKey('Ltpv71G8qDifUiNetRHkuEut8VA5vEXTBSpXUKZRdUrzq4Z3TuVvDNYh8zuDeyTetUPSqYg5fcEJEDpVqe7tXQaE3YtvJkpYLPjSwPMu3dqfvYh');
     var btcKey = new HDPrivateKey('xprv9s21ZrQH143K3e39bnn1vyS7YFa1EAJAFGDoeHaSBsgBxgAkTEXeSx7xLvhNQNJxJwhzziWcK3znUFKRPRwWBPkKZ8ijUBa5YYpYPQmeBDX');
     var testnetKey = new HDPrivateKey('tprv8ZgxMBicQKsPdEeU2KiGFnUgRGriMnQxrwrg6FWCBg4jeiidHRyCCdA357kfkZiGaXEapWZsGDKikeeEbvgXo3UmEdbEKNdQH9VXESmGuUK');
